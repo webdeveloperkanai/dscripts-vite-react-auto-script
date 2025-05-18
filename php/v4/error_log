@@ -1,0 +1,36 @@
+[10-May-2025 08:56:25 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'tiem_slot' in 'INSERT INTO' in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/call.php:990
+Stack trace:
+#0 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/call.php(990): mysqli->query()
+#1 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/index.php(16): require_once('/home/fmzgd3qjc...')
+#2 {main}
+  thrown in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/call.php on line 990
+[10-May-2025 08:56:48 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'tiem_slot' in 'INSERT INTO' in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/call.php:990
+Stack trace:
+#0 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/call.php(990): mysqli->query()
+#1 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/index.php(16): require_once('/home/fmzgd3qjc...')
+#2 {main}
+  thrown in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/call.php on line 990
+[10-May-2025 09:23:15 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'receiver' in 'WHERE' in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php:107
+Stack trace:
+#0 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php(107): mysqli->query()
+#1 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/index.php(17): require_once('/home/fmzgd3qjc...')
+#2 {main}
+  thrown in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php on line 107
+[10-May-2025 09:23:23 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'receiver' in 'WHERE' in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php:107
+Stack trace:
+#0 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php(107): mysqli->query()
+#1 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/index.php(17): require_once('/home/fmzgd3qjc...')
+#2 {main}
+  thrown in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php on line 107
+[10-May-2025 09:23:29 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'receiver' in 'WHERE' in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php:107
+Stack trace:
+#0 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php(107): mysqli->query()
+#1 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/index.php(17): require_once('/home/fmzgd3qjc...')
+#2 {main}
+  thrown in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php on line 107
+[10-May-2025 09:23:34 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'receiver' in 'WHERE' in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php:107
+Stack trace:
+#0 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php(107): mysqli->query()
+#1 /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/index.php(17): require_once('/home/fmzgd3qjc...')
+#2 {main}
+  thrown in /home/fmzgd3qjccfl/api-v4.healthaligndia.com/v4/simplified.php on line 107

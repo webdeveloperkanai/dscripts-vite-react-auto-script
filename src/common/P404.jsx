@@ -1,5 +1,4 @@
 import React from 'react'
-import MenuBar from '../widgets/MenuBar'
 import MetaTags from '../widgets/MetaTags'
 
 const P404 = () => {

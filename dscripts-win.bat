@@ -19,6 +19,8 @@ rmdir /s /q src
 echo Copying custom src folder from script directory...
 xcopy "%SCRIPT_DIR%src" "src" /E /I /Y
 
+xcopy "%SCRIPT_DIR%php" "php" /E /I /Y
+
 copy "%SCRIPT_DIR%index.html" "index.html" /y
 
 rmdir /s /q public
