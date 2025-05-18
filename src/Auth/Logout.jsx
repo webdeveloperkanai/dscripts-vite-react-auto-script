@@ -22,6 +22,7 @@ const Logout = () => {
         cookie.remove("age")
         cookie.remove("phone")
         document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        document.cookie = "''; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 
         setTimeout(() => {
             window.location.href = "/"

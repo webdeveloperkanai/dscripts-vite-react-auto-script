@@ -1,3 +1,8 @@
+import httpdService from './services/httpdService'
+import Cookies from 'universal-cookie' 
+
+var cookie = new Cookies();
+
 const APP_CONFIG = {
     NAME: 'Kishalay School',
     API_TOKEN: 'kishalay_school',
@@ -27,10 +32,10 @@ const monthNames = {
 
 function calculateMonthCount(startMonth, endMonth) {
     const start = monthNames[startMonth];
-    const end = monthNames[endMonth]; 
-    let diff = end - start + 1; 
+    const end = monthNames[endMonth];
+    let diff = end - start + 1;
     if (diff <= 0) {
-        diff += 12; 
+        diff += 12;
     }
 
     return diff;
@@ -147,4 +152,4 @@ function filterDataByConditions(data, conditions) {
 }
 
 
-export { APP_CONFIG, validatePhone, calculateAge, getCurrentDate, filterDataByConditions, getCurrentMonth, getCurrentYear, getCurrentTime, getCurrentSession, getCurrentFinancialYear, getRecurringMonthsFromJan, calculateMonthCount }
+export { APP_CONFIG, validatePhone, calculateAge, getCurrentDate, filterDataByConditions, getCurrentMonth, getCurrentYear, getCurrentTime, getCurrentSession, getCurrentFinancialYear, getRecurringMonthsFromJan, calculateMonthCount, httpdService, cookie };

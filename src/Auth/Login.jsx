@@ -1,23 +1,28 @@
 import React, { useState } from 'react'
-import { APP_CONFIG, validatePhone } from '../config'
-import axios from 'axios'
+import { validatePhone } from '../config' 
 import Cookies from 'universal-cookie'
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'
+import httpdService from '../services/httpdService'
+import Loader from '../widgets/Loader'
 
 const Login = () => {
     const [phone, setPhone] = useState()
     const [password, setPassword] = useState()
+    const [isLoading, setIsLoading] = useState(false)
 
     const login = (e) => {
         e.preventDefault()
         var formData = new FormData();
+        if (phone === undefined || password === undefined || phone === "" || password === "") {
+            return;
+        }
+        setIsLoading(true)
         formData.append("phone", phone)
         formData.append("password", password)
-        formData.append("token", APP_CONFIG.API_TOKEN)
-        formData.append("timestmp", Date.now());
         formData.append("AUTH_LOGIN", "true");
 
-        axios.post(APP_CONFIG.API, formData).then((res) => {
+        httpdService(formData).then((res) => {
+            setIsLoading(false)
             if (res.data.code !== '400') {
                 localStorage.setItem('user', JSON.stringify(res.data))
                 var cookie = new Cookies();
@@ -26,12 +31,16 @@ const Login = () => {
             } else {
                 alert("Please check credentials")
             }
+        }).catch((err) => {
+            setIsLoading(false)
+            alert(err)
         })
     }
 
     return (
         <>
-            <div className="row col-md-12 p-5   login-div">
+            {isLoading && <Loader />}
+            <div className="row col-md-12 p-5 login-div">
                 <div className="col-md-4"></div>
                 <div className='bg-light col-md-4 p-5 shadow-sm rounded form'>
                     <center><h2>LOGIN</h2></center>
@@ -53,7 +62,7 @@ const Login = () => {
                 </div>
 
             </div>
-            
+
         </>
     )
 }
