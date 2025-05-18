@@ -1,9 +1,13 @@
 import os
 from pathlib import Path
+from modules import *
+from modules.create import create_form
+from modules.edit import edit_form
 
-def generate_component(page_name, tableName, items):
+def generate_component(tableName, items):
     # Capitalize component name
-    component_name = ''.join(word.capitalize() for word in page_name.split("_"))
+    # component_name = ''.join(word.capitalize() for word in page_name.split("_"))
+    component_name = f"{tableName}Manage"
     # Cleaned items
     items = [item.strip() for item in items if item.strip()]
 
@@ -36,6 +40,8 @@ const {component_name} = () => {{
     const [showPrint, setShowPrint] = useState(false)
     const [printUrl, setPrintUrl] = useState("")
 
+    const {{status : status}} = useParams()
+
     const fetchData = async () => {{
         setisLoader(true)
         const cookies = new Cookies()
@@ -46,7 +52,12 @@ const {component_name} = () => {{
         formData.append('rank', rank); 
         formData.append('method', 'GET');
         formData.append('table', '{tableName}');
-        formData.append('where', '`invoice_id`=' + id + ' order by id desc');
+        if(status!="" && status!=undefined) {{
+            formData.append('where', 'status=' + status);
+        }} else {{
+            formData.append('where', ' 1 order by id desc'); // add your where condition
+        }}
+        
 
         httpdService(formData).then((response) => {{
             setisLoader(false)
@@ -63,7 +74,7 @@ const {component_name} = () => {{
 
     useEffect(() => {{
         fetchData();
-    }}, []);
+    }}, [status, window.location.href]);
 
     const setPrint = (id) => {{
         setPrintUrl(APP_CONFIG.API + 'print/medicine-invoice?invoice=' + id )
@@ -108,11 +119,11 @@ export default {component_name};
     return component_template.replace("&#123;", "{").replace("&#125;", "}")
 
 def main():
-    page_name = input("Enter your page name: ").strip()
-    if not page_name:
-        print("❌ Page name is required.")
-        return
-    page_name = page_name.replace(" ", "_")
+    # page_name = input("Enter your page name: ").strip()
+    # if not page_name:
+    #     print("❌ Page name is required.")
+    #     return
+    # page_name = page_name.replace(" ", "_")
 
     tableName = input("Enter database table name: ").strip()
     if not tableName:
@@ -126,12 +137,23 @@ def main():
 
     items = items_input.split(',')
 
-    component_code = generate_component(page_name, tableName, items)
+    component_code = generate_component(tableName, items)
 
     # Create file
-    output_path = Path.cwd() / f"{page_name}.jsx"
+    output_path = Path.cwd() / f"{tableName}Manage.jsx"
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(component_code)
+
+    createForm = create_form(f"{tableName}Create", tableName, items)
+    output_path2 = Path.cwd() / f"{tableName}Create.jsx"
+    with open(output_path2, "w", encoding="utf-8") as f:
+        f.write(createForm)
+
+    editForm = edit_form(f"{tableName}Edit", tableName, items)
+    editFormOutput = Path.cwd() / f"{tableName}Edit.jsx"
+    with open(editFormOutput, "w", encoding="utf-8") as f:
+        f.write(editForm)
+
 
     print(f"✅ React component '{output_path.name}' created successfully at:\n{output_path}")
 
