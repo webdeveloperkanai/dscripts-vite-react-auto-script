@@ -7,7 +7,7 @@ from modules.edit import edit_form
 def generate_component(tableName, items):
     # Capitalize component name
     # component_name = ''.join(word.capitalize() for word in page_name.split("_"))
-    component_name = f"{tableName.toCapitalize()}Manage"
+    component_name = f"{tableName.capitalize()}Manage"
     # Cleaned items
     items = [item.strip() for item in items if item.strip()]
 
@@ -25,10 +25,10 @@ def generate_component(tableName, items):
 
     component_template = f"""import React, {{ useEffect, useState }} from 'react'
 import Cookies from 'universal-cookie'
-import {{ useNavigate, useParams }} from 'react-router-dom'
+import {{ useNavigate, useParams, Link }} from 'react-router-dom'
 import {{ APP_CONFIG, httpdService }} from '../../config'
 import Loader from '../../widgets/Loader'
-import PrintPage from '../../widgets/PrintPage' 
+import WebPrinter from '../../widgets/WebPrinter'
 
 const {component_name} = () => {{
     const [isLoader, setisLoader] = useState(true)
@@ -83,9 +83,9 @@ const {component_name} = () => {{
     return (
         <>
             {{isLoader && <Loader />}}
-            {{showPrint && printUrl && <PrintPage url={{printUrl}} onClose={{() => setShowPrint(false)}} />}}
+            {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
 
-            <div className="bg-light text-dark m-3 shadow-sm p-3 rounded">
+            <div className="bg-light text-dark m-0 col-md-12 shadow-sm p-3 rounded">
                 <h2> {component_name} Details
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button>
                     {{filteredData.length > 0 &&
@@ -98,12 +98,19 @@ const {component_name} = () => {{
 
                 {{filteredData.length > 0 &&
                     <table className="table p-2">
-                        <tr class="tr"> <th>SL</th> {tableHeaders} </tr>
+                        <tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr>
 
                         {{ filteredData.map((data, index) => (
                             <tr key={{index}}>
                                 <td> {{index + 1}} </td>
                                 {tableBody}
+                                <td>
+                                <Link to={{`/{tableName}/edit/${{data.id}}`}}>
+                                    <button className="btn-sm btn-primary text-uppercase text-white m-1"> Edit </button>
+                                </Link> 
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1"> Delete </button>
+
+                                </td>
                             </tr>
                         ))}}
                     </table>
@@ -147,17 +154,17 @@ def main():
     component_code = generate_component(tableName, items)
 
     # Create file
-    output_path = Path.cwd() / f"{tableName}Manage.jsx"
+    output_path = Path.cwd() / f"{tableName.capitalize()}Manage.jsx"
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(component_code)
 
     createForm = create_form(f"{tableName}Create", tableName, items)
-    output_path2 = Path.cwd() / f"{tableName}Create.jsx"
+    output_path2 = Path.cwd() / f"{tableName.capitalize()}Create.jsx"
     with open(output_path2, "w", encoding="utf-8") as f:
         f.write(createForm)
 
     editForm = edit_form(f"{tableName}Edit", tableName, items)
-    editFormOutput = Path.cwd() / f"{tableName}Edit.jsx"
+    editFormOutput = Path.cwd() / f"{tableName.capitalize()}Edit.jsx"
     with open(editFormOutput, "w", encoding="utf-8") as f:
         f.write(editForm)
 

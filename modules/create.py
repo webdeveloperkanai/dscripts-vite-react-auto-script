@@ -22,7 +22,7 @@ import Cookies from 'universal-cookie'
 import {{ useNavigate, useParams }} from 'react-router-dom'
 import {{ APP_CONFIG, httpdService }} from '../../config'
 import Loader from '../../widgets/Loader'
-import PrintPage from '../../widgets/PrintPage' 
+import WebPrinter from '../../widgets/WebPrinter'
 
 const {component_name} = () => {{
     const formRef = useRef();
@@ -69,8 +69,8 @@ const {component_name} = () => {{
     return (
         <>
             {{isLoader && <Loader />}} 
-            {{showPrint && printUrl && <PrintPage url={{printUrl}} onClose={{() => setShowPrint(false)}} />}}
-            <div className="bg-light text-dark m-3 shadow-sm p-3 rounded">
+            {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
+            <div className="bg-light text-dark m-0 col-md-12 shadow-sm p-3 rounded">
                 <h2> {component_name} 
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button> 
                 </h2>
