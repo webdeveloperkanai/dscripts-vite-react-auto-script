@@ -132,8 +132,34 @@ def main():
     output_path = os.path.join(project_path, "php/config.php")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(config_content)
-
+    
     print(f"✅ config.php created at {output_path}")
+
+    viteConfig = """
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5003',   // your PHP server
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
+  }
+})
+
+
+"""
+    vitePath = os.path.join(project_path, "vite.config.js")
+    with open(vitePath, "w", encoding="utf-8") as f:
+        f.write(viteConfig)
+
+    print(f"✅ vite.config.js created at {vitePath}")
 
 
     print("\n✅ Setup complete!")

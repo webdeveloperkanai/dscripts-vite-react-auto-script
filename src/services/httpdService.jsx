@@ -40,7 +40,7 @@ const httpdService = (data) => {
 
     base64String = `salted=${uidLen}${extra}${uid}${extra3Len}${extra2}${part1}${extra3}${part2}${extra4}=`
 
-    return axios.post(APP_CONFIG.API, { httpd_data: base64String });
+    return axios.post("/api", { httpd_data: base64String });
 }
 
 export default httpdService

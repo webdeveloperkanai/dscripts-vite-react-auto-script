@@ -7,7 +7,7 @@ from modules.edit import edit_form
 def generate_component(tableName, items):
     # Capitalize component name
     # component_name = ''.join(word.capitalize() for word in page_name.split("_"))
-    component_name = f"{tableName}Manage"
+    component_name = f"{tableName.toCapitalize()}Manage"
     # Cleaned items
     items = [item.strip() for item in items if item.strip()]
 
@@ -134,6 +134,13 @@ def main():
     if not items_input:
         print("❌ Items are required.")
         return
+
+    # check directory is exists or not 
+    if not os.path.exists(tableName):
+        os.makedirs(tableName)
+    
+    # change directory 
+    os.chdir(tableName)
 
     items = items_input.split(',')
 

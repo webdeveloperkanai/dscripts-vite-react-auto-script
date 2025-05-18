@@ -57,9 +57,4 @@ if(isset($drxxx['httpd_data'])) {
          die(json_encode(["err"=> "Token Error!", "code"=> 403 ]));
      } 
 }  
- 
-
-// require_once __DIR__."/app.php";
-require_once __DIR__."/api.php";
-require_once __DIR__."/call.php";
-require_once __DIR__."/simplified.php";
+require_once __DIR__."/api.php"; 
