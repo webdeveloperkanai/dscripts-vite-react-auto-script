@@ -4,7 +4,7 @@ from pathlib import Path
 from modules.create import create_form
 from modules.edit import edit_form
 from modules.selection import create_selection
-from modules.table import create_table
+from modules.table import create_table, create_table2
 from modules.createProject import create_project
 
 
@@ -91,8 +91,18 @@ def init():
 
         create_selection(tableName=tableName,  value=value)
     elif choice == "4":
-        # os.system("python table.py")
-        print("Have to add")
+        tableName, items = accept_input()
+        project_root = Path.cwd()
+        os.chdir(project_root)
+
+        # ask page name
+        page_name = input("Enter page name [without space, CamelCase]: ").strip()
+        if not page_name:
+            print("❌ Page name is required.")
+            return
+        table = create_table2(pageName=page_name, tableName=tableName, items=items)
+        save_file(f"{project_root}/{page_name}.jsx", table)
+
     elif choice == "5":
         tableName, items = accept_input()
         project_root = Path.cwd()
@@ -106,5 +116,7 @@ def init():
     else:
         print("Invalid choice. Please try again.")
 
+    print("✅ Operation completed successfully.")
+    print("Exiting the program.")
 
 init() 

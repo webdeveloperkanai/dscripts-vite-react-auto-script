@@ -79,7 +79,7 @@ const {component_name} = () => {{
 
                     { forms }
                     <div className="col-md-12"> 
-                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn btn-primary mt-3" onClick={{addData}} />
+                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn-sm btn-primary mt-3 text-uppercase" onClick={{addData}} />
                     </div>
                 </form>
             </div>
