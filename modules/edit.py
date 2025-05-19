@@ -1,6 +1,6 @@
 
-def edit_form(pageName, tableName, items):
-    component_name = ''.join(word.capitalize() for word in pageName.split("_"))
+def edit_form(tableName, items):
+    component_name = f"{tableName.capitalize()}Edit"
     # Cleaned items
     items = [item.strip() for item in items if item.strip()]
 
@@ -15,7 +15,7 @@ def edit_form(pageName, tableName, items):
         setValue+= f"""set{item.capitalize()}(dataTemp.{item})
         """
         forms += f"""
-                <div id="phone_div" className='col-md-3'>
+                <div id="{item}_div" className='col-md-3'>
                     <p> Enter {item.capitalize()} </p>
                     <input type='text' name='{item}' id='{item}'
                         className="form-control"

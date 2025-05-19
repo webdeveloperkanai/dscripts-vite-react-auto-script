@@ -1,6 +1,6 @@
 
-def create_form(pageName, tableName, items):
-    component_name = ''.join(word.capitalize() for word in pageName.split("_"))
+def create_form(tableName, items):
+    component_name = f"{tableName.capitalize()}Create"
     # Cleaned items
     items = [item.strip() for item in items if item.strip()]
 
@@ -54,7 +54,7 @@ const {component_name} = () => {{
             setisLoader(false)
             if (resp.code == 200) {{
                 alert(resp.msg)
-                navigate("/{tableName}/view")
+                navigate("/{tableName}")
             }}
         }}).catch((err) => {{
             setisLoader(false)

@@ -30,7 +30,7 @@ def update_package_json(project_path):
         print("✅ package.json updated with PHP server and Vite server.")
 
 
-def main():
+def create_project():
     script_dir = Path(__file__).resolve().parent       # Folder containing this script
     project_root = Path.cwd()                          # Folder where the script is run from
 
@@ -171,5 +171,3 @@ export default defineConfig({
     run_command("start http://localhost:5173", cwd=project_path)
     run_command("npm run dev", cwd=project_path)
 
-if __name__ == "__main__":
-    main()

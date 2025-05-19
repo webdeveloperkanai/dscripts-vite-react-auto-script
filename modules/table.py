@@ -1,0 +1,144 @@
+def create_table(tableName, items):
+    # Capitalize component name
+    # component_name = ''.join(word.capitalize() for word in page_name.split("_"))
+    component_name = f"{tableName.capitalize()}Manage"
+    # Cleaned items
+    items = [item.strip() for item in items if item.strip()]
+
+    # Build dynamic table rows
+    tableHeaders = ""
+    for item in items:
+        tableHeaders += f"""
+        <th>{item.capitalize()}</th> """
+
+    tableBody = ""
+    for item in items:
+        tableBody += f"""
+        <td>&#123;data.{item}&#125;</td> """
+        
+
+    component_template = f"""import React, {{ useEffect, useState }} from 'react'
+import Cookies from 'universal-cookie'
+import {{ useNavigate, useParams, Link }} from 'react-router-dom'
+import {{ APP_CONFIG, httpdService }} from '../../config'
+import Loader from '../../widgets/Loader'
+import WebPrinter from '../../widgets/WebPrinter'
+
+const {component_name} = () => {{
+    const [isLoader, setisLoader] = useState(true)
+    const [tableData, setTableData] = useState([]);
+    const [filteredData, setFilteredData] = useState([])
+    
+    const navigate = useNavigate()
+    const [orders, setOrders] = useState([])
+    const [showPrint, setShowPrint] = useState(false)
+    const [printUrl, setPrintUrl] = useState("")
+
+    const {{status : status}} = useParams()
+
+    const fetchData = async () => {{
+        setisLoader(true)
+        const cookies = new Cookies()
+        const uid = cookies.get('uid') 
+        const rank = cookies.get('rank') 
+        var formData = new FormData();
+        formData.append('method', 'GET');
+        formData.append('table', '{tableName}');
+        if(status!="" && status!=undefined) {{
+            formData.append('where', 'status=' + status);
+        }} else {{
+            formData.append('where', ' 1 order by id desc'); // add your where condition
+        }}
+        
+
+        httpdService(formData).then((response) => {{
+            setisLoader(false)
+            if (response.data.code !== 400) {{
+                setTableData(response.data);
+                setFilteredData(response.data); 
+            }} else {{
+               // alert("No data found")
+            }}
+        }}).catch((error) => {{
+            setisLoader(false)
+            alert(error)
+        }});
+    }}
+
+    useEffect(() => {{
+        fetchData();
+    }}, [status, window.location.href]);
+
+    const setPrint = (id) => {{
+        setPrintUrl(APP_CONFIG.API + 'print/medicine-invoice?invoice=' + id )
+        setShowPrint(true)
+    }}
+
+    const updateData = (e, status) => {{
+        e.preventDefault();
+        setisLoader(true) 
+        var formData = new FormData();
+        formData.append('method', "UPDATE");
+        formData.append('table', "{tableName}");
+        formData.append('where', "id=" + id);
+        formData.append('status', status);
+
+        httpdService(formData).then(res => {{
+            let resp = res.data;
+            setisLoader(false)
+            if (resp.code == 200) {{
+                alert(resp.msg)
+                fetchData()
+            }}
+        }}).catch((err) => {{
+            setisLoader(false)
+            alert(err)
+        }})
+    }}
+
+    return (
+        <>
+            {{isLoader && <Loader />}}
+            {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
+
+            <div className="bg-light text-dark m-0 col-md-12 shadow-sm p-3 rounded">
+                <h2> {component_name} Details
+                    <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button>
+                    {{filteredData.length > 0 &&
+                        <button className="btn-sm btn-success float-right mb-2 mr-2"
+                            onClick={{() => {{ setPrint(filteredData[0].invoice_id) }} }}>
+                            PRINT
+                        </button>
+                    }}
+                </h2>
+
+                 
+                    <table className="table p-2">
+                        <tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr>
+
+                        {{ filteredData.length > 0 && filteredData.map((data, index) => (
+                            <tr key={{index}}>
+                                <td> {{index + 1}} </td>
+                                {tableBody}
+                                <td>
+                                <Link to={{`/{tableName}/edit/${{data.id}}`}}>
+                                    <button className="btn-sm btn-primary text-uppercase text-white m-1"> Edit </button>
+                                </Link> 
+                                <button className="btn-sm btn-success text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Active")}}> Approve </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Rejected")}}> Reject </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Deleted")}}> Delete </button>
+
+                                </td>
+                            </tr>
+                        ))}}    
+                    </table>
+                
+            </div>
+        </>
+    )
+}}
+
+export default {component_name};
+"""
+
+    return component_template.replace("&#123;", "{").replace("&#125;", "}")
