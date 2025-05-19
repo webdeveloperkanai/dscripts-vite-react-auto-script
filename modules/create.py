@@ -8,9 +8,9 @@ def create_form(pageName, tableName, items):
     forms = ""
     for item in items:
         forms += f"""
-                <div id="phone_div" className='col-md-3'>
+                <div id="{item}_div" className='col-md-3'>
                     <p> Enter {item.capitalize()} </p>
-                    <input type='number' name='{item}' id='{item}'
+                    <input type='text' name='{item}' id='{item}'
                         className="form-control"
                         placeholder='Enter {item.capitalize()}'
                     />
@@ -26,7 +26,7 @@ import WebPrinter from '../../widgets/WebPrinter'
 
 const {component_name} = () => {{
     const formRef = useRef();
-    const [isLoader, setisLoader] = useState(true) 
+    const [isLoader, setisLoader] = useState(false) 
     const navigate = useNavigate() 
     const [showPrint, setShowPrint] = useState(false)
     const [printUrl, setPrintUrl] = useState("")
@@ -70,7 +70,7 @@ const {component_name} = () => {{
         <>
             {{isLoader && <Loader />}} 
             {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
-            <div className="bg-light text-dark m-0 col-md-12 shadow-sm p-3 rounded">
+            <div className="bg-light text-dark m-0 mt-3 col-md-12 shadow-sm p-3 rounded">
                 <h2> {component_name} 
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button> 
                 </h2>
@@ -79,7 +79,7 @@ const {component_name} = () => {{
 
                     { forms }
                     <div className="col-md-12"> 
-                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn btn-primary" onClick={{addData}} />
+                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn btn-primary mt-3" onClick={{addData}} />
                     </div>
                 </form>
             </div>

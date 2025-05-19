@@ -12,7 +12,7 @@ def edit_form(pageName, tableName, items):
 
         variables+=f"""const [{item}, set{item.capitalize()}]= useState('');
         """
-        setValue+= f"""set{item.capitalize()}(data.{item})
+        setValue+= f"""set{item.capitalize()}(dataTemp.{item})
         """
         forms += f"""
                 <div id="phone_div" className='col-md-3'>
@@ -55,7 +55,7 @@ const {component_name} = () => {{
             let resp = res.data;
             setisLoader(false)
             if (resp.code !== 400) {{
-                const dataTemp = JSON.parse(resp.data)[0]
+                const dataTemp = resp[0]
                 setdata(dataTemp)
                 {setValue}
             }}
@@ -94,7 +94,7 @@ const {component_name} = () => {{
             setisLoader(false)
             if (resp.code == 200) {{
                 alert(resp.msg)
-                navigate("/{tableName}/view")
+                navigate("/{tableName}")
             }}
         }}).catch((err) => {{
             setisLoader(false)

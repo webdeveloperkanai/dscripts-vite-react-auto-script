@@ -34,7 +34,7 @@ const {component_name} = () => {{
     const [isLoader, setisLoader] = useState(true)
     const [tableData, setTableData] = useState([]);
     const [filteredData, setFilteredData] = useState([])
-    const {{ id }} = useParams()
+    
     const navigate = useNavigate()
     const [orders, setOrders] = useState([])
     const [showPrint, setShowPrint] = useState(false)
@@ -48,8 +48,6 @@ const {component_name} = () => {{
         const uid = cookies.get('uid') 
         const rank = cookies.get('rank') 
         var formData = new FormData();
-        formData.append('uid', uid); 
-        formData.append('rank', rank); 
         formData.append('method', 'GET');
         formData.append('table', '{tableName}');
         if(status!="" && status!=undefined) {{
@@ -120,11 +118,11 @@ const {component_name} = () => {{
                     }}
                 </h2>
 
-                {{filteredData.length > 0 &&
+                 
                     <table className="table p-2">
                         <tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr>
 
-                        {{ filteredData.map((data, index) => (
+                        {{ filteredData.length > 0 && filteredData.map((data, index) => (
                             <tr key={{index}}>
                                 <td> {{index + 1}} </td>
                                 {tableBody}
@@ -140,7 +138,7 @@ const {component_name} = () => {{
                             </tr>
                         ))}}    
                     </table>
-                }}
+                
             </div>
         </>
     )
