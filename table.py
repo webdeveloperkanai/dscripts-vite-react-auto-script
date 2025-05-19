@@ -68,6 +68,7 @@ const {component_name} = () => {{
                // alert("No data found")
             }}
         }}).catch((error) => {{
+            setisLoader(false)
             alert(error)
         }});
     }}
@@ -80,6 +81,29 @@ const {component_name} = () => {{
         setPrintUrl(APP_CONFIG.API + 'print/medicine-invoice?invoice=' + id )
         setShowPrint(true)
     }}
+
+    const updateData = (e, status) => {{
+        e.preventDefault();
+        setisLoader(true) 
+        var formData = new FormData();
+        formData.append('method', "UPDATE");
+        formData.append('table', "{tableName}");
+        formData.append('where', "id=" + id);
+        formData.append('status', status);
+
+        httpdService(formData).then(res => {{
+            let resp = res.data;
+            setisLoader(false)
+            if (resp.code == 200) {{
+                alert(resp.msg)
+                fetchData()
+            }}
+        }}).catch((err) => {{
+            setisLoader(false)
+            alert(err)
+        }})
+    }}
+
     return (
         <>
             {{isLoader && <Loader />}}
@@ -108,11 +132,13 @@ const {component_name} = () => {{
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
                                     <button className="btn-sm btn-primary text-uppercase text-white m-1"> Edit </button>
                                 </Link> 
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1"> Delete </button>
+                                <button className="btn-sm btn-success text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Active")}}> Approve </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Rejected")}}> Reject </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Deleted")}}> Delete </button>
 
                                 </td>
                             </tr>
-                        ))}}
+                        ))}}    
                     </table>
                 }}
             </div>

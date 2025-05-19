@@ -33,7 +33,7 @@ const {component_name} = () => {{
 
     const addData = (e) => {{
         e.preventDefault();
-        setLoading(true)
+        setisLoader(true)
         var cookie = new Cookies()
         var formData = new FormData();
 
@@ -51,13 +51,13 @@ const {component_name} = () => {{
 
         httpdService(formData).then(res => {{
             let resp = res.data;
-            setLoading(false)
+            setisLoader(false)
             if (resp.code == 200) {{
                 alert(resp.msg)
                 navigate("/{tableName}/view")
             }}
         }}).catch((err) => {{
-            setLoading(false)
+            setisLoader(false)
             alert(err)
         }})
     }}

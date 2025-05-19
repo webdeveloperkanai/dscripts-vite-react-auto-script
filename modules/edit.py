@@ -17,7 +17,7 @@ def edit_form(pageName, tableName, items):
         forms += f"""
                 <div id="phone_div" className='col-md-3'>
                     <p> Enter {item.capitalize()} </p>
-                    <input type='number' name='{item}' id='{item}'
+                    <input type='text' name='{item}' id='{item}'
                         className="form-control"
                         placeholder='Enter {item.capitalize()}'
                         onChange={{(e) => set{item.capitalize()}(e.target.value)}}
@@ -72,7 +72,7 @@ const {component_name} = () => {{
 
     const updateData = (e) => {{
         e.preventDefault();
-        setLoading(true)
+        setisLoader(true)
         var cookie = new Cookies()
         var formData = new FormData();
 
@@ -91,13 +91,13 @@ const {component_name} = () => {{
 
         httpdService(formData).then(res => {{
             let resp = res.data;
-            setLoading(false)
+            setisLoader(false)
             if (resp.code == 200) {{
                 alert(resp.msg)
                 navigate("/{tableName}/view")
             }}
         }}).catch((err) => {{
-            setLoading(false)
+            setisLoader(false)
             alert(err)
         }})
     }}
@@ -110,7 +110,7 @@ const {component_name} = () => {{
         <>
             {{isLoader && <Loader />}} 
             {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
-            <div className="bg-light text-dark m-0 col-md-12 shadow-sm p-3 rounded">
+            <div className="bg-light text-dark m-0 mt-3 col-md-12 shadow-sm p-3 rounded">
                 <h2> {component_name} 
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button> 
                 </h2>
@@ -119,7 +119,7 @@ const {component_name} = () => {{
 
                     { forms }
                     <div className="col-md-12"> 
-                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn btn-primary" onClick={{updateData}} />
+                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn btn-primary mt-3" onClick={{updateData}} />
                     </div>
                 </form>
             </div>
