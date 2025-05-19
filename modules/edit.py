@@ -110,7 +110,7 @@ const {component_name} = () => {{
         <>
             {{isLoader && <Loader />}} 
             {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
-            <div className="bg-light text-dark m-0 mt-3 col-md-12 shadow-sm p-3 rounded">
+            <div className="bg-light text-dark m-0  mt-3 main-body col-md-12 shadow-sm p-3 rounded">
                 <h2> {component_name} 
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button> 
                 </h2>

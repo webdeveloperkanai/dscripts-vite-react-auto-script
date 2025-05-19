@@ -11,10 +11,16 @@ def create_table(tableName, items):
         tableHeaders += f"""
         <th>{item.capitalize()}</th> """
 
+    conditions = ""
+
     tableBody = ""
     for item in items:
         tableBody += f"""
         <td>&#123;data.{item}&#125;</td> """
+
+        conditions += f"""
+          || item.{item}.toLowerCase().includes(value) 
+        """
         
 
     component_template = f"""import React, {{ useEffect, useState }} from 'react'
@@ -35,6 +41,18 @@ const {component_name} = () => {{
     const [printUrl, setPrintUrl] = useState("")
 
     const {{status : status}} = useParams()
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 50;
+
+    // Calculate total pages
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+    // Slice data for current page
+    const paginatedData = filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     const fetchData = async () => {{
         setisLoader(true)
@@ -101,22 +119,31 @@ const {component_name} = () => {{
             {{isLoader && <Loader />}}
             {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
 
-            <div className="bg-light text-dark m-0 col-md-12 shadow-sm p-3 rounded">
-                <h2> {component_name} Details
+            <div className="bg-light text-dark m-0 mt-3 main-body  col-md-12 shadow-sm p-3 rounded">
+                <h2> {component_name}
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button>
-                    {{filteredData.length > 0 &&
-                        <button className="btn-sm btn-success float-right mb-2 mr-2"
-                            onClick={{() => {{ setPrint(filteredData[0].invoice_id) }} }}>
-                            PRINT
-                        </button>
-                    }}
                 </h2>
 
-                 
+                 <div className="row col-md-12 m-0 p-0 pb-3">
+                    <div className="col-md-9"></div>
+                    <div className="col-md-3">
+                        <input type="text" className="form-control" placeholder="Search" onChange={{(e) => {{
+                            const value = e.target.value.toLowerCase();
+                            const filtered = tableData.filter(item => {{
+                                return (
+                                    item.id.toLowerCase().includes(value) 
+                                    {conditions}
+                                );
+                            }});
+                            setFilteredData(filtered);
+                            setCurrentPage(1);
+                        }} />
+                    </div>
+                </div>
                     <table className="table p-2">
                         <tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr>
 
-                        {{ filteredData.length > 0 && filteredData.map((data, index) => (
+                        {{ paginatedData.length > 0 && paginatedData.map((data, index) => (
                             <tr key={{index}}>
                                 <td> {{index + 1}} </td>
                                 {tableBody}
@@ -132,6 +159,24 @@ const {component_name} = () => {{
                             </tr>
                         ))}}    
                     </table>
+
+                    {{paginatedData.length == 0 && <div className="alert alert-danger">No data found</div>}}
+
+                    <div className="navigate col-md-12 row m-0 mt-2 mb-2 justify-content-between mb-5 pb-5">
+                    <button className='btn-sm btn-primary'
+                        onClick={{() => setCurrentPage((prev) => Math.max(prev - 1, 1))}}
+                        disabled={{currentPage === 1}}
+                    >
+                        Prev
+                    </button>
+                    <span>Page {{currentPage}} of {{totalPages}}</span>
+                    <button className='btn-sm btn-primary'
+                        onClick={{() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}}
+                        disabled={{currentPage === totalPages}}
+                    >
+                        Next
+                    </button>
+                </div>
                 
             </div>
         </>

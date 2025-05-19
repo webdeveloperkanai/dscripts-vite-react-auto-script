@@ -69,19 +69,20 @@ def init():
         project_root = Path.cwd()
         os.chdir(project_root)
         # check dir is exists or not, if not then create
-        if not os.path.exists(tableName):
-            os.makedirs(tableName)
+        # if not os.path.exists(tableName):
+        #     os.makedirs(tableName)
         
-        # change directory 
-        os.chdir(tableName)
+        # # change directory 
+        # os.chdir(tableName)
 
         table = create_table(tableName=tableName, items=items)
         craete = create_form(tableName=tableName, items=items)
         edit = edit_form(tableName=tableName, items=items)
+        print(project_root)
 
-        save_file(f"{project_root}/{tableName.capitalize()}/{tableName.capitalize()}Manage.jsx", table)
-        save_file(f"{project_root}/{tableName.capitalize()}/{tableName.capitalize()}Create.jsx", craete)
-        save_file(f"{project_root}/{tableName.capitalize()}/{tableName.capitalize()}Edit.jsx", edit)
+        save_file(f"{project_root}/{tableName.capitalize()}Manage.jsx", table)
+        save_file(f"{project_root}/{tableName.capitalize()}Create.jsx", craete)
+        save_file(f"{project_root}/{tableName.capitalize()}Edit.jsx", edit)
 
     elif choice == "3":
         tableName, value = accept_input_for_selection()
