@@ -63,7 +63,7 @@ const {component_name} = () => {{
         formData.append('method', 'GET');
         formData.append('table', '{tableName}');
         if(status!="" && status!=undefined) {{
-            formData.append('where', 'status=' + status);
+            formData.append('where', 'status="' + status+'"');
         }} else {{
             formData.append('where', ' 1 order by id desc'); // add your where condition
         }}
@@ -255,7 +255,7 @@ const {component_name} = () => {{
         formData.append('method', 'GET');
         formData.append('table', '{tableName}');
         if(status!="" && status!=undefined) {{
-            formData.append('where', 'status=' + status);
+           formData.append('where', 'status="' + status+'"');
         }} else {{
             formData.append('where', ' 1 order by id desc'); // add your where condition
         }}
