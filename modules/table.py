@@ -92,7 +92,7 @@ const {component_name} = () => {{
         setShowPrint(true)
     }}
 
-    const updateData = (e, status) => {{
+    const updateData = (e, id, status) => {{
         e.preventDefault();
         setisLoader(true) 
         var formData = new FormData();
@@ -152,9 +152,9 @@ const {component_name} = () => {{
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
                                     <button className="btn-sm btn-primary text-uppercase text-white m-1"> Edit </button>
                                 </Link> 
-                                <button className="btn-sm btn-success text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Active")}}> Approve </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Rejected")}}> Reject </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, "Deleted")}}> Delete </button>
+                                <button className="btn-sm btn-success text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Active")}}> Approve </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Rejected")}}> Reject </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Deleted")}}> Delete </button>
 
                                 </td>
                             </tr>
