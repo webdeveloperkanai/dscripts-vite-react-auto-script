@@ -140,7 +140,7 @@ def init():
         configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/details/:id", "title": f"{tableName.capitalize()} Details ", "element": f"<{tableName.capitalize()}Details />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}Details.jsx" })
 
         # # by dynamic   
-        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/dyn/:any/:valu", "title": f"{tableName.capitalize()} Dynamic ", "element": f"<{tableName.capitalize()}Dynamic />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}Dynamic.jsx" })  
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/dyn/:any/:valu", "title": f"{tableName.capitalize()} Dynamic ", "element": f"<{tableName.capitalize()}ByDynamic />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}ByDynamic.jsx" })  
 
 
         # check dir is exists or not, if not then create
@@ -174,8 +174,8 @@ def init():
         save_file(f"{project_root}/src/views/{tableName.lower()}/{tableName.capitalize()}ByDate.jsx", tableByStatus)
         print(f"Created by date page at src/views/{tableName.lower()}/{tableName.capitalize()}ByDate.jsx")
 
-        save_file(f"{project_root}/src/views/{tableName.lower()}/{tableName.capitalize()}ByDyn.jsx", tableByStatus)
-        print(f"Created by date page at src/views/{tableName.lower()}/{tableName.capitalize()}ByDyn.jsx")
+        save_file(f"{project_root}/src/views/{tableName.lower()}/{tableName.capitalize()}ByDynamic.jsx", tableByStatus)
+        print(f"Created by date page at src/views/{tableName.lower()}/{tableName.capitalize()}ByDynamix.jsx")
 
         save_file(f"{project_root}/src/views/{tableName.lower()}/{tableName.capitalize()}Details.jsx", tableByStatus)
         print(f"Created by date page at src/views/{tableName.lower()}/{tableName.capitalize()}Details.jsx")

@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import os
 
 def sync_json_to_pages(json_file_path, pages_file_path):
     # Read JSON file
@@ -35,6 +36,7 @@ def sync_json_to_pages(json_file_path, pages_file_path):
     pages_jsx_content += "const Pages = [\n" + "\n".join(route_lines) + "\n];\n\n"
     pages_jsx_content += "export default Pages;\n"
 
+    os.chdir("src")
     # Write to pages.jsx
     with open(pages_file_path, 'w', encoding='utf-8') as f:
         f.write(pages_jsx_content)

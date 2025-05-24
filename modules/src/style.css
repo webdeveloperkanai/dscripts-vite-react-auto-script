@@ -280,39 +280,13 @@ footer {
 .navbar-light,
 .navbar,
 .collapse {
-  background: green !important;
+  background: #0078D7 !important;
   font-weight: bold;
 }
 .nav-item > a {
   color: white !important;
   font-size: 12px;
-}
-.shift {
-  position: fixed;
-  right: 10px;
-  bottom: 50px;
-  z-index: 99;
-  height: 50px;
-  width: 50px;
-  background: green;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: 22px;
-  animation: 0.5s anmt ease-in-out infinite;
-  font-weight: bold;
-}
-
-@keyframes anmt {
-  to {
-    background: green;
-  }
-  from {
-    background: yellowgreen;
-  }
-}
+} 
 .table tr:nth-child(even) {
   background: #eee;
 }
@@ -350,7 +324,7 @@ h3 {
 
 @media (max-width: 600px) and (min-width: 100px) {
   .dropdown-toggle {
-    background: green;
+    background: #0078D7;
   }
   #navbarSupportedContent {
     display: none;
@@ -372,7 +346,7 @@ h3 {
     height: 40px !important;
   }
   .nav-item:nth-child(1) a {
-    background: green !important;
+    background: #0078D7 !important;
   }
 }
 table {

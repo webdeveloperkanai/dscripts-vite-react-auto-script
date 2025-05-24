@@ -4,13 +4,13 @@ import Cookies from 'universal-cookie'
 var cookie = new Cookies();
 
 const APP_CONFIG = {
-    NAME: 'Kishalay School',
-    API_TOKEN: 'kishalay_school',
+    NAME: 'D Scripts',
+    API_TOKEN: 'Y2V5c2luZ3RyYWRpbmc=',
     VERSION: '1.0.0',
-    AUTHOR: 'DSI-Schools',
-    DESCRIPTION: 'DSI-Schools',
-    ICON: 'favicon.ico',
-    API: 'https://portal.kishalayschool.in/v1/api/index.php',
+    AUTHOR: 'DSI-Scripts',
+    DESCRIPTION: 'DSI-Scripts',
+    ICON: '/img/favicon.png',
+    API: 'http://localhost:5003/',
 }
 
 

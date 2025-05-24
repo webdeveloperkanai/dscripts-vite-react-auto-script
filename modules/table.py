@@ -71,7 +71,7 @@ const {component_name} = () => {{
 
         httpdService(formData).then((response) => {{
             setisLoader(false)
-            if (response.data.code !== 400) {{
+            if (response.data.code !== 400 && response.data.code !== 403) {{
                 setTableData(response.data);
                 setFilteredData(response.data); 
             }} else {{
@@ -263,7 +263,7 @@ const {component_name} = () => {{
 
         httpdService(formData).then((response) => {{
             setisLoader(false)
-            if (response.data.code !== 400) {{
+            if (response.data.code !== 400 && response.data.code !== 403) {{
                 setTableData(response.data);
                 setFilteredData(response.data); 
             }} else {{
