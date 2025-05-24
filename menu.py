@@ -9,7 +9,7 @@ from modules.table import create_table, create_table2
 from modules.createProject import create_project
 from modules.configure import NestedJsonFile
 from modules.tags import get_meta_tags, get_loader_tag, get_printer_tag
-
+from modules.sync_menu import sync_json_to_pages
 
 def save_file(filePath, content): 
     with open(filePath, "w", encoding="utf-8") as f:
@@ -113,7 +113,7 @@ def init():
                 save_file(f"{project_root}/src/widgets/WebPrinter.jsx", printer)
         # Checking default widget files  done 
 
-    
+
         tableName, items = accept_input()
         configFile = NestedJsonFile("dsc.json")
         
@@ -185,7 +185,11 @@ def init():
 
         save_file(f"{project_root}/src/views/{tableName.lower()}/{tableName.capitalize()}Edit.jsx", edit)
         print(f"Created edit page at src/views/{tableName.lower()}/{tableName.capitalize()}Edit.jsx")
- 
+
+        os.chdir(project_root)
+        
+        sync_json_to_pages("dsc.json", "pages.jsx") 
+        print("✅ Done syncing json to pages.jsx")
 
     elif choice == "3":
         tableName, value = accept_input_for_selection()
