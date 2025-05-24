@@ -26,7 +26,7 @@ if (!function_exists('DSI_TABLE_GEN')) {
                         <br><br>
                             <a href="' .
             strtolower($page) .
-            '.add" class="float-right btn btn-outline-primary">Add New </a>
+            '.add" class="float-right btn-sm btn-outline-primary">Add New </a>
                             <br><br> 
                         </div>
                         <p class="card-subtitle mb-3">
@@ -57,10 +57,10 @@ if (!function_exists('DSI_TABLE_GEN')) {
                 if ($edit == 'on' || $delete == 'on') {
                     $table .= '<td>';
                     if ($edit == 'on') {
-                        $table .= " <a href='$tab.edit?eid=$id' class='btn btn-primary'> Edit </a>   ";
+                        $table .= " <a href='$tab.edit?eid=$id' class='btn-sm btn-primary'> Edit </a>   ";
                     }
                     if ($delete == 'on') {
-                        $table .= "<a href='?did=$id' class='btn btn-danger' onclick='return confirm(`This record will be trashed!`)'> Delete </a>";
+                        $table .= "<a href='?did=$id' class='btn-sm btn-danger' onclick='return confirm(`This record will be trashed!`)'> Delete </a>";
                     }
                     $table .= ' </td>';
                 }
@@ -120,7 +120,7 @@ if (!function_exists('DSI_TABLE_TRASH')) {
                         <br><br>
                             <a href="' .
             strtolower($page) .
-            '" class="float-right btn btn-outline-primary"> Back </a>
+            '" class="float-right btn-sn btn-outline-primary"> Back </a>
                             <br><br> 
                         </div>
                         <p class="card-subtitle mb-3">
@@ -150,9 +150,9 @@ if (!function_exists('DSI_TABLE_TRASH')) {
                 if ($edit == 'on' || $delete == 'on') {
                     $table .= '<td>';
 
-                    $table .= " <a href='?eid=$id' class='btn btn-primary'> Recover </a>   ";
+                    $table .= " <a href='?eid=$id' class='btn-sm btn-primary'> Recover </a>   ";
 
-                    $table .= "<a href='?did=$id' class='btn btn-danger' onclick='return confirm(`This record will be deleted!`)'> Delete </a>";
+                    $table .= "<a href='?did=$id' class='btn-sm btn-danger' onclick='return confirm(`This record will be deleted!`)'> Delete </a>";
 
                     $table .= ' </td>';
                 }

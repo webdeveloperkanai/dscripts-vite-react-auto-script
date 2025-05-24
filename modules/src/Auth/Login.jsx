@@ -62,7 +62,7 @@ const Login = () => {
                     />
                     <Link className='text-primary float-right float-end' to="/forgot-password">Forgot Password?</Link>
                     <br />
-                    <center><button className='btn btn-primary w-50' onClick={login}>LOGIN</button></center>
+                    <center><button className='btn-sm btn-primary w-50' onClick={login}>LOGIN</button></center>
                 </div>
 
             </div>

@@ -10,6 +10,7 @@ from modules.createProject import create_project
 from modules.configure import NestedJsonFile
 from modules.tags import get_meta_tags, get_loader_tag, get_printer_tag
 from modules.sync_menu import sync_json_to_pages
+from modules.sync_json_to_menu import sync_json_to_menu
 
 def save_file(filePath, content): 
     with open(filePath, "w", encoding="utf-8") as f:
@@ -190,6 +191,12 @@ def init():
         
         sync_json_to_pages("dsc.json", "pages.jsx") 
         print("✅ Done syncing json to pages.jsx")
+
+
+        os.chdir(project_root)
+        
+        sync_json_to_menu("dsc.json", "src/utils/menu.jsx")
+        print("✅ Done syncing json to menu.jsx")
 
     elif choice == "3":
         tableName, value = accept_input_for_selection()

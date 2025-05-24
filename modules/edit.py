@@ -115,11 +115,11 @@ const {component_name} = () => {{
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button> 
                 </h2>
 
-                <form ref={{formRef}} onSubmit={{updateData}} encType="multipart/form-data" className="form bg-light text-dark m-3 p-3 row shadow-sm col-md-12">
+                <form ref={{formRef}} onSubmit={{updateData}} encType="multipart/form-data" className="form bg-light text-dark m-3 p-3 row col-md-12">
 
                     { forms }
                     <div className="col-md-12"> 
-                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn btn-primary mt-3" onClick={{updateData}} />
+                        <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" className="btn-sm btn-primary mt-3" onClick={{updateData}} />
                     </div>
                 </form>
             </div>

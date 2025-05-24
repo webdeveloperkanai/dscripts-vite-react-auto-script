@@ -12,7 +12,36 @@ def sync_json_to_pages(json_file_path, pages_file_path):
     import_lines = []
     route_lines = []
 
-    for route in routes:
+    default_pages = [
+        {
+            "path": "/",
+            "title": "Dashboard",
+            "element": "<HomeScreen />",
+            "location": "./views/Home/HomeScreen.jsx"
+        },
+        {
+            "path": "/dashboard",
+            "title": "Dashboard",
+            "element": "<HomeScreen />",
+            "location": "./views/Home/HomeScreen.jsx"
+        },
+        {
+            "path": "/login",
+            "title": "Login",
+            "element": "<Login />",
+            "location": "./Auth/Login.jsx"
+        },
+        {
+            "path": "/logout",
+            "title": "Logout",
+            "element": "<Logout />",
+            "location": "./Auth/Logout.jsx"
+        }
+    ]
+
+    all_routes = default_pages + routes
+
+    for route in all_routes:
         location = route.get("location", "")
         element = route.get("element", "")
         path = route.get("path", "")

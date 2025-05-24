@@ -48,7 +48,7 @@ const WebPrinter = ({ url: url, print: printComplete }) => {
     return (
         <div className='web-printer'>
             <iframe id='iframe' src={url} frameborder="0" style={{ width: '100%', height: '95%' }}></iframe>
-            <center><button className='btn btn-danger btn-sm' onClick={() => { printComplete(false) }}>CLOSE</button></center>
+            <center><button className='btn-sm btn-danger btn-sm' onClick={() => { printComplete(false) }}>CLOSE</button></center>
         </div>
     )
 }

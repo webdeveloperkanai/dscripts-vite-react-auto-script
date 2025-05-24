@@ -47,7 +47,7 @@ const ResetPassword = () => {
 
                     <Link className='text-primary float-right float-end' to="/login">Recovered? Login</Link>
                     <br />
-                    <center><button className='btn btn-primary w-50' onClick={login}>GET NEW PASSWORD</button></center>
+                    <center><button className='btn-sm btn-primary w-50' onClick={login}>GET NEW PASSWORD</button></center>
                 </div>
 
             </div>

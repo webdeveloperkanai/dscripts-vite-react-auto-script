@@ -20,7 +20,7 @@ if (!function_exists("DSI_INSERT_FORM")) {
                         <div class="card-body">
                             <div class="mb-2">
                             <br><br>
-                                <a href="' . strtolower($page) . '" class="float-right btn btn-outline-primary">Back </a>
+                                <a href="' . strtolower($page) . '" class="float-right btn-sm btn-outline-primary">Back </a>
                                 <br><br> 
                             </div> 
                             <form action="" method="POST" enctype="multipart/form-data" class="col-md-12 row">
@@ -34,7 +34,7 @@ if (!function_exists("DSI_INSERT_FORM")) {
                 $form .= '<div class="col-md-4"> <p> Enter ' . $dtUp . ' </p> <input type="text" name="' . $dt . '" id="' . $dt . '"   class="form-control" /> </div> ';
             }
         }
-        $form .= '<div class="col-md-4"> <p> &nbsp; </p> <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" class="btn btn-primary" /> </div> ';
+        $form .= '<div class="col-md-4"> <p> &nbsp; </p> <input type="submit" name="ADD_NEW_DATA" id="ADD_NEW_DATA" class="btn-sm btn-primary" /> </div> ';
 
         $form .= "</form>  </div></div></section>";
 
@@ -61,7 +61,7 @@ if (!function_exists("DSI_UPDATE_FORM")) {
                         <div class="card-body">
                             <div class="mb-2">
                             <br><br>
-                                <a href="' . strtolower($page) . '" class="float-right btn btn-outline-primary">Back </a>
+                                <a href="' . strtolower($page) . '" class="float-right btn-sm btn-outline-primary">Back </a>
                                 <br><br> 
                             </div> 
                             <form action="" method="POST" enctype="multipart/form-data" class="col-md-12 row">
@@ -77,7 +77,7 @@ if (!function_exists("DSI_UPDATE_FORM")) {
             }
             $form .= '<div class="col-md-4"> <p> &nbsp; </p> 
             <input type="hidden" name="eid"  value="' . $d["id"] . '"  /> 
-            <input type="submit" name="UPDATE_DSI_DATA" id="UPDATE_DSI_DATA" class="btn btn-primary" value="UPDATE DATA" /> </div> ';
+            <input type="submit" name="UPDATE_DSI_DATA" id="UPDATE_DSI_DATA" class="btn-sm btn-primary" value="UPDATE DATA" /> </div> ';
 
             $form .= "</form>  </div></div></section>";
         }
