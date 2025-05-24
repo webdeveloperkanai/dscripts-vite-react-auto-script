@@ -6,7 +6,9 @@ from modules.edit import edit_form
 from modules.selection import create_selection
 from modules.table import create_table, create_table2
 from modules.createProject import create_project
+from modules.configure import NestedJsonFile
 
+configFile = NestedJsonFile(".dscripts.json")
 
 def save_file(filePath, content): 
     with open(filePath, "w", encoding="utf-8") as f:
@@ -47,8 +49,15 @@ def accept_input_for_selection():
     
     return tableName, value
 
+def check_project_root():
+    if Path("package.json").is_file():
+        return True
+    return False
 
 def init():
+
+    
+
     print("""
     1. Create New Project
     2. Create New CRUD Component
@@ -65,9 +74,43 @@ def init():
       
     
     if choice == "2":
-        tableName, items = accept_input()
-        project_root = Path.cwd()
+        
+        project_root = Path.cwd() 
         os.chdir(project_root)
+        current_folder = os.path.basename(os.getcwd())
+        root = check_project_root()
+        if not root:
+            print("❌ You are not in project root directory. Please run this script from project root directory.")
+            return
+        
+        tableName, items = accept_input()
+        
+        configFile.add_or_update(["app", "name"], current_folder.replace("-", "_").replace(" ", "_"))        
+        configFile.add_or_update(["app", "version"], "1.0.0")
+        configFile.add_or_update(["app", "config", "theme"], "light")  
+
+        # manage page
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}", "title": {tableName.capitalize()}, "element": f"<{tableName.capitalize()}Manage />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}Manage.jsx" })
+       
+        # add page 
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/add", "title": f"{tableName.capitalize()}Add", "element": f"<{tableName.capitalize()}Add />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}Add.jsx" })
+        
+        # edit page 
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/edit/:id", "title": f"{tableName.capitalize()}Update", "element": f"<{tableName.capitalize()}Edit />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}Edit.jsx" })
+
+        # by status 
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/status/:status", "title": f"{tableName.capitalize()} By Status", "element": f"<{tableName.capitalize()}ByStatus />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}ByStatus.jsx" })
+
+        # by date 
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/date/:date", "title": f"{tableName.capitalize()} By Date", "element": f"<{tableName.capitalize()}ByDate />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}ByDate.jsx" })
+
+        # by id details  
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/details/:id", "title": f"{tableName.capitalize()} Details ", "element": f"<{tableName.capitalize()}Details />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}Details.jsx" })
+
+        # by dynamic   
+        configFile.append_to_list(["app", "routes"], { "path": f"/{tableName}/dyn/:any/:valu", "title": f"{tableName.capitalize()} Dynamic ", "element": f"<{tableName.capitalize()}Dynamic />", "location": f"/src/views/{tableName.lower()}/{tableName.capitalize()}Dynamic.jsx" })  
+
+
         # check dir is exists or not, if not then create
         # if not os.path.exists(tableName):
         #     os.makedirs(tableName)
