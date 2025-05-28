@@ -1,5 +1,5 @@
 import os 
-from modules.utils import accept_input
+from modules.utils.accept_input import accept_input
 from modules.table import create_table2
 from pathlib import Path
 from modules.utils.save_file import save_file

@@ -1,6 +1,8 @@
 
 def create_selection(tableName, value):
-    component_name = tableName.capitalize() 
+    # tableName = tableName.capitalize() 
+    # tableName = tableName+"Select"
+    component_name =  tableName.capitalize() 
     # Cleaned items
      
 
@@ -11,13 +13,12 @@ import {{ APP_CONFIG, httpdService }} from '../../config'
 import Loader from '../../widgets/Loader'
 import WebPrinter from '../../widgets/WebPrinter'
 
-const {component_name} = (className, title, value, onChange) => {{
+const {component_name}Selection = ({{className, title, value, onChange}}) => {{
     const formRef = useRef();
     const [isLoader, setisLoader] = useState(false)  
     const [data, setData] = useState([])
 
-    const getData = (e) => {{
-        e.preventDefault();
+    const getData = () => {{ 
         setisLoader(true)
         var cookie = new Cookies()
         var formData = new FormData(); 
@@ -37,6 +38,9 @@ const {component_name} = (className, title, value, onChange) => {{
             alert(err)
         }})
     }}
+useEffect(() => {{
+        getData()
+}}, [])
 
      
     return (
@@ -56,7 +60,7 @@ const {component_name} = (className, title, value, onChange) => {{
     )
 }}
 
-export default {component_name};
+export default {component_name}Selection;
 """
 
     return component_template.replace("&#123;", "{").replace("&#125;", "}")
