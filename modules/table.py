@@ -123,6 +123,7 @@ const {component_name} = () => {{
             <div className="bg-light text-dark m-0 mt-3 main-body  col-md-12 shadow-sm p-3 rounded">
                 <h2> {component_name}
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button>
+                    <button className="btn-sm btn-success float-right m-1 mb-2" onClick={{() => navigate(`{tableName}-add`)}}>ADD NEW</button>
                 </h2>
 
                  <div className="row col-md-12 m-0 p-0 pb-3">
@@ -146,7 +147,7 @@ const {component_name} = () => {{
 
                         {{ paginatedData.length > 0 && paginatedData.map((data, index) => (
                             <tr key={{index}}>
-                                <td> {{index + 1}} </td>
+                                <td> {{(currentPage - 1) * itemsPerPage + index + 1}} </td>
                                 {tableBody}
                                 <td>
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
@@ -314,7 +315,8 @@ const {component_name} = () => {{
 
             <div className="bg-light text-dark m-0 mt-3 main-body  col-md-12 shadow-sm p-3 rounded">
                 <h2> {component_name}
-                    <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button>
+                    <button className="btn-sm btn-danger float-right m-1 mb-2" onClick={{() => navigate(-1)}}>BACK</button>
+                    <button className="btn-sm btn-success float-right m-1 mb-2" onClick={{() => navigate(`{tableName}-add`)}}>ADD NEW</button>
                 </h2>
 
                  <div className="row col-md-12 m-0 p-0 pb-3">
@@ -339,7 +341,7 @@ const {component_name} = () => {{
                         <tbody>
                         {{ paginatedData.length > 0 && paginatedData.map((data, index) => (
                             <tr key={{index}}>
-                                <td> {{index + 1}} </td>
+                                <td> {{(currentPage - 1) * itemsPerPage + index + 1}} </td>
                                 {tableBody}
                                 <td>
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
