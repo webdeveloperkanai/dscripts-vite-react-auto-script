@@ -19,16 +19,16 @@ def create_table(tableName, items):
         <td>&#123;data.{item}&#125;</td> """
 
         conditions += f"""
-          || item.{item}.toLowerCase().includes(value) """
+          || item.{item}?.toLowerCase().includes(value) """
         
 
     component_template = f"""import React, {{ useEffect, useState }} from 'react'
 import Cookies from 'universal-cookie'
 import {{ useNavigate, useParams, Link }} from 'react-router-dom'
-import {{ APP_CONFIG, httpdService }} from '../../config'
-import Loader from '../../widgets/Loader'
-import WebPrinter from '../../widgets/WebPrinter'
-import MetaTags from '../../widgets/MetaTags'
+import {{ APP_CONFIG, httpdService }} from '@/config'
+import Loader from '@/widgets/Loader'
+import WebPrinter from '@/widgets/WebPrinter'
+import MetaTags from '@/widgets/MetaTags'
 
 const {component_name} = () => {{
     const [isLoader, setisLoader] = useState(true)
@@ -113,6 +113,27 @@ const {component_name} = () => {{
             alert(err)
         }})
     }}
+    const deleteData = (e, id ) => {{
+        e.preventDefault();
+        if(!window.confirm("Are you sure you want to delete this data?")) return
+        setisLoader(true) 
+        var formData = new FormData();
+        formData.append('method', "DELETE");
+        formData.append('table', "{tableName}");
+        formData.append('where', "id=" + id); 
+
+        httpdService(formData).then(res => {{
+            let resp = res.data;
+            setisLoader(false)
+            if (resp.code == 200) {{
+                alert(resp.msg)
+                fetchData()
+            }}
+        }}).catch((err) => {{
+            setisLoader(false)
+            alert(err)
+        }})
+    }}
 
     return (
         <>
@@ -143,7 +164,15 @@ const {component_name} = () => {{
                     </div>
                 </div>
                     <table className="table p-2">
-                        <tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr>
+                        <thead>
+                        <tr class="tr"> 
+                        <th>SL</th>
+                          {tableHeaders} 
+                        <th>Action </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
 
                         {{ paginatedData.length > 0 && paginatedData.map((data, index) => (
                             <tr key={{index}}>
@@ -151,15 +180,29 @@ const {component_name} = () => {{
                                 {tableBody}
                                 <td>
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
-                                    <button className="btn-sm btn-primary text-uppercase text-white m-1"> Edit </button>
+                                    <button className="btn-sm btn-primary text-uppercase text-white m-1" title="Edit Item"> <i className="fa fa-edit"></i> </button>
                                 </Link> 
-                                <button className="btn-sm btn-success text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Active")}}> Approve </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Rejected")}}> Reject </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Deleted")}}> Delete </button>
+                                <button className="btn-sm btn-success text-uppercase text-white m-1" 
+                                    onClick={{(e) => updateData(e, data.id, "Active")}} title="Activate/Approve Item"> <i className="fa fa-check"></i> </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" 
+                                    onClick={{(e) => updateData(e, data.id, "Rejected")}} title="Reject/Block Item"> <i className="fa fa-close"></i> </button>
+                                
+                                {{/* <button className="btn-sm btn-danger text-uppercase text-white m-1" 
+                                    onClick={{(e) => deleteData(e, data.id )}} title="Delete Item"> <i className="fa fa-trash"></i> </button>
+                                    */}}
 
                                 </td>
                             </tr>
+                            
                         ))}}    
+                        </tbody>
+                        <tfoot>
+                        <tr class="tr"> 
+                        <th>SL</th>
+                          {tableHeaders} 
+                        <th>Action </th>
+                        </tr>
+                        </tfoot>
                     </table>
 
                     {{paginatedData.length == 0 && <div className="alert alert-danger">No data found</div>}}
@@ -213,16 +256,16 @@ def create_table2(pageName, tableName, items):
         <td>&#123;data.{item}&#125;</td> """
 
         conditions += f"""
-          || item.{item}.toLowerCase().includes(value) """
+          || item.{item}?.toLowerCase().includes(value) """
         
 
     component_template = f"""import React, {{ useEffect, useState }} from 'react'
 import Cookies from 'universal-cookie'
 import {{ useNavigate, useParams, Link }} from 'react-router-dom'
-import {{ APP_CONFIG, httpdService }} from '../../config'
-import Loader from '../../widgets/Loader'
-import WebPrinter from '../../widgets/WebPrinter'
-import MetaTags from '../../widgets/MetaTags'
+import {{ APP_CONFIG, httpdService }} from '@/config'
+import Loader from '@/widgets/Loader'
+import WebPrinter from '@/widgets/WebPrinter'
+import MetaTags from '@/widgets/MetaTags'
 
 const {component_name} = () => {{
     const [isLoader, setisLoader] = useState(true)
@@ -307,6 +350,28 @@ const {component_name} = () => {{
         }})
     }}
 
+    const deleteData = (e, id ) => {{
+        e.preventDefault();
+        if(!window.confirm("Are you sure you want to delete this data?")) return
+        setisLoader(true) 
+        var formData = new FormData();
+        formData.append('method', "DELETE");
+        formData.append('table', "{tableName}");
+        formData.append('where', "id=" + id); 
+
+        httpdService(formData).then(res => {{
+            let resp = res.data;
+            setisLoader(false)
+            if (resp.code == 200) {{
+                alert(resp.msg)
+                fetchData()
+            }}
+        }}).catch((err) => {{
+            setisLoader(false)
+            alert(err)
+        }})
+    }}
+
     return (
         <>
             <MetaTags title="{component_name}" description="" keywords="" />
@@ -345,15 +410,22 @@ const {component_name} = () => {{
                                 {tableBody}
                                 <td>
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
-                                    <button className="btn-sm btn-primary text-uppercase text-white m-1"> Edit </button>
+                                    <button className="btn-sm btn-primary text-uppercase text-white m-1" title="Edit"> <i className="fa fa-edit"></i> </button>
                                 </Link> 
-                                <button className="btn-sm btn-success text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Active")}}> Approve </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Rejected")}}> Reject </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Deleted")}}> Delete </button>
+                                <button className="btn-sm btn-success text-uppercase text-white m-1" 
+                                    onClick={{(e) => updateData(e, data.id, "Active")}} title="Activate/Approve Item"> <i className="fa fa-check"></i> </button>
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" 
+                                    onClick={{(e) => updateData(e, data.id, "Rejected")}} title="Reject/Block Item"> <i className="fa fa-close"></i> </button>
+                               
+                                {{/* <button className="btn-sm btn-danger text-uppercase text-white m-1" 
+                                    onClick={{(e) => updateData(e, data.id, "Deleted")}} title="Delete Item"> <i className="fa fa-trash"></i> </button>
+                                    */}}
 
                                 </td>
                             </tr>
                         ))}}    
+                        </tbody>
+                        <tfoot><tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr> </tfoot>
                         </tbody>
                     </table>
 
