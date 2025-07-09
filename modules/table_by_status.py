@@ -149,8 +149,12 @@ const {component_name} = () => {{
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
                                     <button className="btn-sm btn-primary text-uppercase text-white m-1"> Edit </button>
                                 </Link> 
+                                {{data.status!=="Active" &&
                                 <button className="btn-sm btn-success text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Active")}}> Approve </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Rejected")}}> Reject </button>
+                                }} 
+                                {{data.status==="Active" &&
+                                <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Rejected")}}> Reject </button> 
+                                }}
                                 <button className="btn-sm btn-danger text-uppercase text-white m-1" onClick={{(e) => updateData(e, data.id, "Deleted")}}> Delete </button>
 
                                 </td>

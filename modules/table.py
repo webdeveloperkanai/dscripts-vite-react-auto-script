@@ -183,11 +183,16 @@ const {component_name} = () => {{
                                 <Link to={{`/{tableName}/edit/${{data.id}}`}}>
                                     <button className="btn-sm btn-primary text-uppercase text-white m-1" title="Edit Item"> <i className="fa fa-edit"></i> </button>
                                 </Link> 
+
+                                {{data.status !=="Active" &&
                                 <button className="btn-sm btn-success text-uppercase text-white m-1" 
                                     onClick={{(e) => updateData(e, data.id, "Active")}} title="Activate/Approve Item"> <i className="fa fa-check"></i> </button>
+                                    }}
+
+                                    {{data.status==="Active" &&
                                 <button className="btn-sm btn-danger text-uppercase text-white m-1" 
                                     onClick={{(e) => updateData(e, data.id, "Rejected")}} title="Reject/Block Item"> <i className="fa fa-close"></i> </button>
-                                
+                                }} 
                                 {{/* <button className="btn-sm btn-danger text-uppercase text-white m-1" 
                                     onClick={{(e) => deleteData(e, data.id )}} title="Delete Item"> <i className="fa fa-trash"></i> </button>
                                     */}}
@@ -415,10 +420,15 @@ const {component_name} = () => {{
                                     <Link to={{`/{tableName}/edit/${{data.id}}`}}>
                                         <button className="btn-sm btn-primary text-uppercase text-white m-1" title="Edit"> <i className="fa fa-edit"></i> </button>
                                     </Link> 
+
+                                    {{data.status!=="Active" &&
                                     <button className="btn-sm btn-success text-uppercase text-white m-1" 
                                         onClick={{(e) => updateData(e, data.id, "Active")}} title="Activate/Approve Item"> <i className="fa fa-check"></i> </button>
-                                    <button className="btn-sm btn-danger text-uppercase text-white m-1" 
-                                        onClick={{(e) => updateData(e, data.id, "Rejected")}} title="Reject/Block Item"> <i className="fa fa-close"></i> </button>
+                                    }}
+                                        {{data.status==="Active" &&
+                                            <button className="btn-sm btn-danger text-uppercase text-white m-1" 
+                                                onClick={{(e) => updateData(e, data.id, "Rejected")}} title="Reject/Block Item"> <i className="fa fa-close"></i> </button>
+                                        }}
                                 
                                     {{/* <button className="btn-sm btn-danger text-uppercase text-white m-1" 
                                         onClick={{(e) => updateData(e, data.id, "Deleted")}} title="Delete Item"> <i className="fa fa-trash"></i> </button>
