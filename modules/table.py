@@ -313,15 +313,15 @@ const {component_name} = () => {{
 
         httpdService(formData).then((response) => {{
             setisLoader(false)
-            if (response.data.code !== 400 && response.data.code !== 403) {{
-                setTableData(response.data);
-                setFilteredData(response.data); 
+            if (response.status===200) {{
+                setTableData(response.data.data);
+                setFilteredData(response.data.data); 
             }} else {{
-               // alert("No data found")
+               toast.error(response.msg)
             }}
         }}).catch((error) => {{
             setisLoader(false)
-            alert(error)
+            toast.error(error)
         }});
     }}
 

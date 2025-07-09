@@ -9,13 +9,24 @@ def create_form(tableName, items):
     for item in items:
         forms += f"""
                 <div id="{item}_div" className='col-md-3'>
-                    <p> Enter {item.capitalize()} </p>
+                    <p> Enter {item.replace('_', ' ') .lower()} </p>
                     <input type='text' name='{item}' id='{item}'
-                        className="form-control"
-                        placeholder='Enter {item.capitalize()}'
+                        className="form-control" 
+                        onChange={{(e) => set{item.capitalize()}(e.target.value)}}
+                        value=&#123;{item}&#125;
                     />
                 </div>
          """ 
+    variables= ""
+    for item in items:
+        variables += f""" const [{item}, set{item.capitalize()}]= useState('');
+         """ 
+    formData= ""
+    for item in items:
+        formData += f"""
+            formData.append('{item}', {item});
+         """ 
+    
 
     component_template = f"""import React, {{ useEffect, useState, useRef }} from 'react'
 import Cookies from 'universal-cookie'
@@ -31,19 +42,23 @@ const {component_name} = () => {{
     const [showPrint, setShowPrint] = useState(false)
     const [printUrl, setPrintUrl] = useState("")
 
+    {variables}
+
     const addData = (e) => {{
         e.preventDefault();
         setisLoader(true)
         var cookie = new Cookies()
         var formData = new FormData();
 
-         const formElements = formRef.current.elements;
-         for (let i = 0; i < formElements.length; i++) {{
-            const field = formElements[i];
-             if (field.name) {{
-                formData.append(field.name, field.value);
-             }}
-         }} 
+         //const formElements = formRef.current.elements;
+         //for (let i = 0; i < formElements.length; i++) {{
+         //   const field = formElements[i];
+         //    if (field.name) {{
+         //       formData.append(field.name, field.value);
+         //    }}
+         //}} 
+
+        {formData}
         formData.append('method', "PUT");
         formData.append('table', "{tableName}");
 
@@ -71,7 +86,7 @@ const {component_name} = () => {{
             {{isLoader && <Loader />}} 
             {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
             <div className="bg-light text-dark m-0 mt-3 main-body col-md-12 shadow-sm p-3 rounded">
-                <h2> {component_name} 
+                <h2> {component_name.replace('_', ' ').replace("Create", " Create")} 
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button> 
                 </h2>
 

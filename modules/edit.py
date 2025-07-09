@@ -8,6 +8,8 @@ def edit_form(tableName, items):
     forms = ""
     variables= ""
     setValue = ''
+    formData= ""
+
     for item in items:
 
         variables+=f"""const [{item}, set{item.capitalize()}]= useState('');
@@ -16,14 +18,17 @@ def edit_form(tableName, items):
         """
         forms += f"""
                 <div id="{item}_div" className='col-md-3'>
-                    <p> Enter {item.capitalize()} </p>
+                    <p> Enter {item.replace('_', '').lower()} </p>
                     <input type='text' name='{item}' id='{item}'
-                        className="form-control"
-                        placeholder='Enter {item.capitalize()}'
+                        className="form-control" 
                         onChange={{(e) => set{item.capitalize()}(e.target.value)}}
                         value=&#123;{item}&#125;
                     />
                 </div>
+         """  
+        
+        formData += f"""
+            formData.append('{item}', {item});
          """ 
 
     component_template = f"""import React, {{ useEffect, useState, useRef }} from 'react'
@@ -54,8 +59,8 @@ const {component_name} = () => {{
         httpdService(formdata).then(res => {{
             let resp = res.data;
             setisLoader(false)
-            if (resp.code !== 400) {{
-                const dataTemp = resp[0]
+            if (res.status ===200 ) {{
+                const dataTemp = resp.data[0]
                 setdata(dataTemp)
                 {setValue}
             }}
@@ -76,13 +81,15 @@ const {component_name} = () => {{
         var cookie = new Cookies()
         var formData = new FormData();
 
-         const formElements = formRef.current.elements;
-         for (let i = 0; i < formElements.length; i++) {{
-            const field = formElements[i];
-             if (field.name) {{
-                formData.append(field.name, field.value);
-             }}
-         }} 
+         // const formElements = formRef.current.elements;
+         // for (let i = 0; i < formElements.length; i++) {{
+         //    const field = formElements[i];
+         //     if (field.name) {{
+         //        formData.append(field.name, field.value);
+         //     }}
+         // }} 
+
+         {formData}
         formData.append('method', "UPDATE");
         formData.append('where', "id=" + id);
         formData.append('table', "{tableName}");
@@ -111,7 +118,7 @@ const {component_name} = () => {{
             {{isLoader && <Loader />}} 
             {{showPrint && printUrl && <WebPrinter url={{printUrl}} print={{() => setShowPrint(false)}} />}}
             <div className="bg-light text-dark m-0  mt-3 main-body col-md-12 shadow-sm p-3 rounded">
-                <h2> {component_name} 
+                <h2> {component_name.replace('_', ' ').replace("Edit", " Edit")} 
                     <button className="btn-sm btn-danger float-right mb-2" onClick={{() => navigate(-1)}}>BACK</button> 
                 </h2>
 
