@@ -137,6 +137,7 @@ const {component_name} = () => {{
                         }}}} />
                     </div>
                 </div>
+                <div className="col-md-12 table-wrapper overflow-x-auto">
                     <table className="table p-2">
                         <tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr>
 
@@ -156,7 +157,7 @@ const {component_name} = () => {{
                             </tr>
                         ))}}    
                     </table>
-
+                    </div> 
                     {{paginatedData.length == 0 && <div className="alert alert-danger">No data found</div>}}
 
                     <div className="navigate col-md-12 row m-0 mt-2 mb-2 justify-content-between mb-5 pb-5">

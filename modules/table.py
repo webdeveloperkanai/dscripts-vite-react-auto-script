@@ -163,6 +163,7 @@ const {component_name} = () => {{
                         }}}} />
                     </div>
                 </div>
+                <div className="col-md-12 table-wrapper overflow-x-auto">
                     <table className="table p-2">
                         <thead>
                         <tr class="tr"> 
@@ -204,7 +205,7 @@ const {component_name} = () => {{
                         </tr>
                         </tfoot>
                     </table>
-
+                    </div> 
                     {{paginatedData.length == 0 && <div className="alert alert-danger">No data found</div>}}
 
                     <div className="navigate col-md-12 row m-0 mt-2 mb-2 justify-content-between mb-5 pb-5">
@@ -400,34 +401,37 @@ const {component_name} = () => {{
                         }}}} />
                     </div>
                 </div>
-                    <table className="table p-2">
-                        <thead><tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr> </thead>
+                    <div className="col-md-12 table-wrapper overflow-x-auto">
 
-                        <tbody>
-                        {{ paginatedData.length > 0 && paginatedData.map((data, index) => (
-                            <tr key={{index}}>
-                                <td> {{(currentPage - 1) * itemsPerPage + index + 1}} </td>
-                                {tableBody}
-                                <td>
-                                <Link to={{`/{tableName}/edit/${{data.id}}`}}>
-                                    <button className="btn-sm btn-primary text-uppercase text-white m-1" title="Edit"> <i className="fa fa-edit"></i> </button>
-                                </Link> 
-                                <button className="btn-sm btn-success text-uppercase text-white m-1" 
-                                    onClick={{(e) => updateData(e, data.id, "Active")}} title="Activate/Approve Item"> <i className="fa fa-check"></i> </button>
-                                <button className="btn-sm btn-danger text-uppercase text-white m-1" 
-                                    onClick={{(e) => updateData(e, data.id, "Rejected")}} title="Reject/Block Item"> <i className="fa fa-close"></i> </button>
-                               
-                                {{/* <button className="btn-sm btn-danger text-uppercase text-white m-1" 
-                                    onClick={{(e) => updateData(e, data.id, "Deleted")}} title="Delete Item"> <i className="fa fa-trash"></i> </button>
-                                    */}}
+                        <table className="table p-2">
+                            <thead><tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr> </thead>
 
-                                </td>
-                            </tr>
-                        ))}}    
-                        </tbody>
-                        <tfoot><tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr> </tfoot>
-                        </tbody>
-                    </table>
+                            <tbody>
+                            {{ paginatedData.length > 0 && paginatedData.map((data, index) => (
+                                <tr key={{index}}>
+                                    <td> {{(currentPage - 1) * itemsPerPage + index + 1}} </td>
+                                    {tableBody}
+                                    <td>
+                                    <Link to={{`/{tableName}/edit/${{data.id}}`}}>
+                                        <button className="btn-sm btn-primary text-uppercase text-white m-1" title="Edit"> <i className="fa fa-edit"></i> </button>
+                                    </Link> 
+                                    <button className="btn-sm btn-success text-uppercase text-white m-1" 
+                                        onClick={{(e) => updateData(e, data.id, "Active")}} title="Activate/Approve Item"> <i className="fa fa-check"></i> </button>
+                                    <button className="btn-sm btn-danger text-uppercase text-white m-1" 
+                                        onClick={{(e) => updateData(e, data.id, "Rejected")}} title="Reject/Block Item"> <i className="fa fa-close"></i> </button>
+                                
+                                    {{/* <button className="btn-sm btn-danger text-uppercase text-white m-1" 
+                                        onClick={{(e) => updateData(e, data.id, "Deleted")}} title="Delete Item"> <i className="fa fa-trash"></i> </button>
+                                        */}}
+
+                                    </td>
+                                </tr>
+                            ))}}    
+                            </tbody>
+                            <tfoot><tr class="tr"> <th>SL</th> {tableHeaders} <th>Action </th></tr> </tfoot>
+                            
+                        </table>
+                    </div> 
 
                     {{paginatedData.length == 0 && <div className="alert alert-danger">No data found</div>}}
 
